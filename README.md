@@ -4,84 +4,54 @@
 <p align="center">
   <strong>raycast-DLmoji</strong>
 </p>
-<p align="center">A Raycast translation Extension, Powerful and Easy to use. </p>
+<p align="center">An intelligent Emoji Dictionary🙃 helps to get related Emojis, Phrases, and AI-powered Translations in Raycast.</p>
 
-## Features
+## Feature
 
-1. Supports 26+ languages.
-2. Support Play TTS (Text to Speech)
-3. Support Copy Auto Paste, also support **lowerCamelCase** and **ALL_UPPERCASE** copy mode.
-4. Quick translation to another language
-5. Use third-party dictionary queries. now we only support EuDic(欧路词典)
+1. Supports Chinese & English Emoji Search
+2. Quick translation to Emojis’ world! Supports Semantic, Verbatim or Blended Translation
+3. Gets related Emojis 🐮 or Emoji Phrases 🐂🍺 with Explanations
 
-## Documents
+## Using Tips
 
-### Copy
+![List](./assets/Screenshot-3.png)
 
-All copy items in Action Panel, you can click it or use `cmd` + `k` to expand it.
+1. `Emoji Translate` performs better when handling English query text.
+2. `Emotion Analysis` is powered by [deepmoji](https://github.com/bfelbo/DeepMoji), trained on tweets with emojis to understand how language is used to express emotions. Note that deepmoji only used [63 kinds of emojis](https://github.com/bfelbo/DeepMoji/blob/master/emoji_overview.png) to express emotions.
+3. `Verbatim Translate` only supports Chinese query text and needs a relatively long response time. To gain a better experience, this API is turned off by default.
 
-#### 1. lowerCamelCase
+## Configuration
 
-Use `>` before query text to copy translate results, for example: `> Hola`
+![Config](./assets/Screenshot-4.png)
 
-#### 2. ALL_UPPERCASE
+To enable `Emotion Analysis`, you need to deploy deepmoji as a web service on your server. Here we offer an off-the-shelf [deepmoji docker image](https://hub.docker.com/r/thandaanda/deepmoji). If you want to use another model service, remember to follow the response format:
 
-Use `>>` before query text to copy translate result, for example: `>> Hola`
+```json
+{
+    "emoji": [
+        [
+            {
+                "emoji": "😅",
+                "prob": 0.00611169869080185890
+            },
+            {
+                "emoji": "😒",
+                "prob": 0.00045027132728137076
+            },
+            {
+                "emoji": "😫",
+                "prob": 0.00971820019185543060
+            },
+            {
+                "emoji": "😭",
+                "prob": 0.01060504186898469925
+            }, ...
+```
 
-### Support Languages & TTS(Text-to-Speech)
+Since deepmoji only supports English inputs, we further integrate Baidu Translate to support chinese query analysis. We provide the default token to access Baidu Translate API, but the server might have a request limit. 
 
-You can play Query Text and Results Text
+Here we recommend users register App-ID and App-Secret in [Baidu Translate](https://fanyi-api.baidu.com/api/trans/product/prodinfo) to gain a better experience for free!
 
-| Language              | Voice                                                                                                   | Default |
-| --------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| English               | 🇺🇸 Alex 🇺🇸 Fred 🇺🇸 Samantha 🇺🇸 Victoria 🇬🇧 Daniel 🇦🇺 Karen 🇮🇪 Moira 🇮🇳 Rishi 🇮🇳 Veena 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Fiona 🌍 Tessa | Alex    |
-| Spanish               | 🇪🇸 Jorge 🇪🇸 Monica 🇦🇷 Diego 🇲🇽 Paulina                                                                  | Jorge   |
-| 🇮🇹 Italiana           | Alice, Luca                                                                                             | Alice   |
-| 🇸🇪 Swedish            | Alva                                                                                                    | -       |
-| 🇫🇷 French             | Amelie, Thomas                                                                                          | Amelie  |
-| 🇩🇪 German             | Anna                                                                                                    | -       |
-| 🇮🇱 Hebrew             | Carmit                                                                                                  | -       |
-| 🇮🇩 Indonesia          | Damayanti                                                                                               | -       |
-| 🇳🇱 Dutch              | Ellen, Xander                                                                                           | Ellen   |
-| 🇷🇴 Romanian           | Ioana                                                                                                   | -       |
-| 🇵🇹 Portuguese         | Joana, Luciana                                                                                          | Joana   |
-| 🇹🇭 Thai               | Kanya                                                                                                   | -       |
-| 🇯🇵 Japan              | Kyoko                                                                                                   | -       |
-| 🇸🇰 Slovak             | Laura                                                                                                   | -       |
-| 🇭🇹 Hindi              | Lekha                                                                                                   | -       |
-| 🇦🇪 Arabic             | Maged                                                                                                   | -       |
-| 🇭🇺 Hungarian          | Mariska                                                                                                 | -       |
-| 🇬🇷 Greek              | Melina                                                                                                  | -       |
-| 🇷🇺 Russian            | Milena, Yuri                                                                                            | Milena  |
-| 🇩🇰 Danish             | Sara                                                                                                    | -       |
-| 🇫🇮 Finnish            | Satu                                                                                                    | -       |
-| 🇨🇳 Chinese-Simplified | Ting-Ting                                                                                               | -       |
-| 🇹🇷 Turkish            | Yelda                                                                                                   | -       |
-| 🇰🇷 Korea              | Yuna                                                                                                    | -       |
-| 🇵🇱 Polish             | Zosia                                                                                                   | -       |
-| 🇨🇿 Czech              | Zuzana                                                                                                  | -       |
+## Thanks
 
-## Error Code Information
-
-More error code information please visit [Youdao API Document (中文)](https://ai.youdao.com/DOCSIRMA/html/自然语言翻译/API文档/文本翻译服务/文本翻译服务-API文档.html)
-or you can submit an issue.
-
-| Code | Description                                                                                                                                                                                            |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 101  | Mandatory parameters are missing. Ensure that the required parameters are complete and that the parameters are written correctly                                                                       |
-| 103  | Translated text is too long                                                                                                                                                                            |
-| 108  | If the application ID is invalid, you can register an account, log in to the background, create an application and instance, and bind the application to obtain the application ID and application key |
-| 112  | Invalid request service                                                                                                                                                                                |
-| 207  | Replay request                                                                                                                                                                                         |
-| 302  | Translation query failed                                                                                                                                                                               |
-| 303  | Other exceptions on the server                                                                                                                                                                         |
-| 411  | Access frequency limited, please visit later                                                                                                                                                           |
-| 412  | Long requests are too frequent. Please visit later                                                                                                                                                     |
-
-## Default Config
-
-We provide the default token down below, but they maybe have a limit request server, so you should try registering your App-ID and App-Key go to [Youdao (中文))](https://ai.youdao.com/#/)
-
-App ID: _0d68776be7e9be0b_
-
-App Key: _MIbu7DGsOPdbatL9KmgycGx0qDOzQWCM_
+Inspired and based on [raycast-Parrot](https://github.com/Haojen/raycast-Parrot), `DLmoji` offers an easy-to-use Emoji Dictionary by integrating APIs from [EmojiTranslate](https://emojitranslate.com/), [i18dao](https://zhongwenzidian.18dao.cn/to-emoji), and [EMOJIALL](https://www.emojiall.com/). To be more intelligent, `DLmoji` also supports [deepmoji](https://github.com/bfelbo/DeepMoji) sentiment analysis API, which can find the most matching emojis of your query words.

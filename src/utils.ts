@@ -25,3 +25,9 @@ export function checkURL(str: string){
     const objExp=new RegExp(Expression);
     return objExp.test(str)
 } 
+
+export function truncate(string: string, length = 16, separator = "..") {
+    if (string.length <= length) return string
+
+    return string.substring(0, length) + separator
+}

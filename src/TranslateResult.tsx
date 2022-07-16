@@ -1,16 +1,11 @@
 import { Component, Fragment } from "react"
 import { SECTION_TYPE } from "./consts"
 import { Action, ActionPanel, Clipboard, Color, Icon, List, getPreferenceValues } from "@raycast/api"
+import { truncate } from "./utils"
 
 interface ITranslateResult {
     inputState?: string
     translateResultState?: ITranslateReformatResult[]
-}
-
-function truncate(string: string, length = 16, separator = "..") {
-    if (string.length <= length) return string
-
-    return string.substring(0, length) + separator
 }
 
 function reformatCopyTextArray(data: string[], limitResultAmount = 10): IReformatTranslateResult[] {

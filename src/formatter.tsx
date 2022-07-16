@@ -1,5 +1,6 @@
 import { SECTION_TYPE } from "./consts"
 import { load } from 'cheerio'
+import { truncate } from "./utils"
 
 const MAX_LENGTH = 5
 
@@ -38,7 +39,7 @@ export function formatEmojiAll(data: EmojiDataItem[]): ITranslateReformatResult[
 
     function extract(item: EmojiDataItem) {
         return {
-            title: item.value + '  ' + item.emoji_symbol,
+            title: truncate(item.value, 32) + '  ' + item.emoji_symbol,
             subtitle: item.description.replace(/<[^>]+>|\r|\n|\\s/ig, ''),  // 去掉换行,空格,html标签
             key: item.emoji_symbol
         }
