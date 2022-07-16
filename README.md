@@ -14,7 +14,7 @@
 
 ## Using Tips
 
-![List](./assets/Screenshot-3.png)
+![Main Panel](./assets/Main-Panel.png)
 
 1. `Emoji Translate` performs better when handling English query text.
 2. `Emotion Analysis` is powered by [deepmoji](https://github.com/bfelbo/DeepMoji), trained on tweets with emojis to understand how language is used to express emotions. Note that deepmoji only used [63 kinds of emojis](https://github.com/bfelbo/DeepMoji/blob/master/emoji_overview.png) to express emotions.
@@ -22,7 +22,7 @@
 
 ## Configuration
 
-![Config](./assets/Screenshot-4.png)
+![Config Panel](./assets/Config-Panel.png)
 
 To enable `Emotion Analysis`, you need to deploy deepmoji as a web service on your server. Here we offer an off-the-shelf [deepmoji docker image](https://hub.docker.com/r/thandaanda/deepmoji). If you want to use another model service, remember to follow the response format:
 
