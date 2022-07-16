@@ -2,8 +2,6 @@ import axios from "axios"
 import querystring from "node:querystring"
 import CryptoJS from "crypto-js";
 import { checkURL, defaultBaiduAppId, defaultBaiduAppSecret, preferences, showErrorToast } from "./utils";
-import { showToast, Toast } from "@raycast/api";
-import { checkPrime } from "node:crypto";
 
 // baidu app id and secret
 const baiduAppId = preferences.baiduAppId.trim().length > 0 ? preferences.baiduAppId.trim() : defaultBaiduAppId;
