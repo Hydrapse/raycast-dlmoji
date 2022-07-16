@@ -19,12 +19,14 @@ export default function () {
     const [translateResultState, updateTranslateResultState] = useState<ITranslateReformatResult[]>()
 
     function getEmojiData() {
+        if (!inputState) return
+
         // String Filter
-        const queryGlobal: string = inputState?.replace(/邓港大/g, "猪")!
+        const queryGlobal: string = inputState.replace(/邓港大/g, "猪")!
         const queryText: string = queryGlobal.replace(/伶仔|伶伶/g, "公主")
         const queryEmoji: string = queryGlobal.replace(/伶仔|伶伶/g, "👸")
 
-        let hasChinese =  /[\u4E00-\u9FA5]+/g.test(queryText)
+        const hasChinese =  /[\u4E00-\u9FA5]+/g.test(queryText)
         const lang = hasChinese ? 'zh' : 'en'
 
         const dataList: ITranslateReformatResult[] = []
