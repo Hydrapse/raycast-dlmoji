@@ -3,11 +3,24 @@ import { useEffect, useState } from "react"
 import TranslateResult from "./TranslateResult"
 import { Icon, List } from "@raycast/api"
 import axios from "axios"
-import { fetchBaiduTrans, fetchChineseEmojiTrans, fetchDeepl, fetchDeepmoji, fetchEmojiAll, fetchEmojiTrans, fetchEmojiTransHtml } from "./api"
-import { formatBaiduTrans, formatChineseEmojiTrans, formatDeepmoji, formatEmojiAll, formatEmojiTrans } from "./formatter"
-import { getEmojiTransKey } from "./storage";
+import {
+    fetchBaiduTrans,
+    fetchChineseEmojiTrans,
+    fetchDeepl,
+    fetchDeepmoji,
+    fetchEmojiAll,
+    fetchEmojiTrans,
+    fetchEmojiTransHtml,
+} from "./api"
+import {
+    formatBaiduTrans,
+    formatChineseEmojiTrans,
+    formatDeepmoji,
+    formatEmojiAll,
+    formatEmojiTrans,
+} from "./formatter"
+import { getEmojiTransKey } from "./storage"
 import { SECTION_TYPE } from "./consts"
-
 
 let delayFetchTranslateAPITimer: NodeJS.Timeout
 let delayUpdateTargetLanguageTimer: NodeJS.Timeout
@@ -26,8 +39,8 @@ export default function () {
         const queryText: string = queryGlobal.replace(/伶仔|伶伶/g, "公主")
         const queryEmoji: string = queryGlobal.replace(/伶仔|伶伶/g, "👸")
 
-        const hasChinese =  /[\u4E00-\u9FA5]+/g.test(queryText)
-        const lang = hasChinese ? 'zh' : 'en'
+        const hasChinese = /[\u4E00-\u9FA5]+/g.test(queryText)
+        const lang = hasChinese ? "zh" : "en"
 
         const dataList: ITranslateReformatResult[] = []
 
@@ -40,7 +53,7 @@ export default function () {
 
                 const res = await fetchBaiduTrans(queryText)
                 enText = formatBaiduTrans(res.data)
-                if (!enText) return ''
+                if (!enText) return ""
             }
             const res = await fetchDeepmoji(enText)
             if (!res?.data) return
@@ -72,7 +85,7 @@ export default function () {
                 const result: ITranslateReformatResult = {
                     type: SECTION_TYPE.Translate,
                     title: SECTION_TYPE.Translate,
-                    children: []
+                    children: [],
                 }
                 if (emojiTrans) {
                     result.children.push(emojiTrans)
@@ -88,7 +101,7 @@ export default function () {
                 if (emojiAll?.length > 0) {
                     dataList.push(...emojiAll)
                 }
-                
+
                 updateLoadingState(false)
                 updateTranslateResultState(dataList)
             })
@@ -138,10 +151,7 @@ export default function () {
             searchBarPlaceholder={"Translate text"}
         >
             <List.EmptyView icon={Icon.TextDocument} title="Type something to translate." />
-            <TranslateResult
-                inputState={inputState}
-                translateResultState={translateResultState}
-            />
+            <TranslateResult inputState={inputState} translateResultState={translateResultState} />
         </List>
     )
 }
