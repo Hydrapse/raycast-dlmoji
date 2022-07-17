@@ -3,15 +3,7 @@ import { useEffect, useState } from "react"
 import TranslateResult from "./TranslateResult"
 import { Icon, List } from "@raycast/api"
 import axios from "axios"
-import {
-    fetchBaiduTrans,
-    fetchChineseEmojiTrans,
-    fetchDeepl,
-    fetchDeepmoji,
-    fetchEmojiAll,
-    fetchEmojiTrans,
-    fetchEmojiTransHtml,
-} from "./api"
+import { fetchBaiduTrans, fetchChineseEmojiTrans, fetchDeepmoji, fetchEmojiAll, fetchEmojiTrans } from "./api"
 import {
     formatBaiduTrans,
     formatChineseEmojiTrans,
@@ -35,9 +27,9 @@ export default function () {
         if (!inputState) return
 
         // String Filter
-        const queryGlobal: string = inputState.replace(/邓港大/g, "猪")!
-        const queryText: string = queryGlobal.replace(/伶仔|伶伶/g, "公主")
-        const queryEmoji: string = queryGlobal.replace(/伶仔|伶伶/g, "👸")
+        const queryGlobal: string = inputState
+        const queryText: string = queryGlobal.replace(/伶仔|伶伶/g, "公主").replace(/邓港大/g, "猪")
+        const queryEmoji: string = queryGlobal.replace(/伶仔|伶伶/g, "🐰").replace(/邓港大/g, "🦊")
 
         const hasChinese = /[\u4E00-\u9FA5]+/g.test(queryText)
         const lang = hasChinese ? "zh" : "en"
@@ -45,7 +37,7 @@ export default function () {
         const dataList: ITranslateReformatResult[] = []
 
         // 接口速度较慢
-        async function getDeepmoji(): Promise<any> {
+        async function getDeepmoji(): Promise<ITranslateReformatResultItem | undefined> {
             let enText: string = queryText
             if (hasChinese) {
                 // const res = await fetchDeepl(queryText)
@@ -53,13 +45,13 @@ export default function () {
 
                 const res = await fetchBaiduTrans(queryText)
                 enText = formatBaiduTrans(res.data)
-                if (!enText) return ""
+                if (!enText) return
             }
             const res = await fetchDeepmoji(enText)
             if (!res?.data) return
             return formatDeepmoji(res.data.emoji[0])
         }
-        async function getEmojiTrans(updateKey = false): Promise<any> {
+        async function getEmojiTrans(updateKey = false): Promise<ITranslateReformatResultItem | undefined> {
             const key = await getEmojiTransKey(updateKey)
             const res = await fetchEmojiTrans(queryEmoji, lang, key)
             if (!res?.data) {
@@ -67,7 +59,7 @@ export default function () {
             }
             return formatEmojiTrans(res.data)
         }
-        async function getChineseEmojiTrans(): Promise<any> {
+        async function getChineseEmojiTrans(): Promise<ITranslateReformatResultItem | undefined> {
             if (!preferences.useVerbatimTranslate || !hasChinese) return
             const res = await fetchChineseEmojiTrans(queryEmoji)
             if (!res?.data) return
