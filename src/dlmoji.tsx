@@ -24,11 +24,10 @@ import { getEmojiTransKey } from "./storage"
 import { SECTION_TYPE } from "./consts"
 
 // use preConnect to reduce API response time
-preConnect().then(() =>
-    setTimeout(() => {
-        setAxiosTimeout(6)
-    }, 3000)
-)
+preConnect()
+setTimeout(() => {
+    setAxiosTimeout(6)
+}, 8000)
 
 let delayFetchTranslateAPITimer: NodeJS.Timeout
 let delayUpdateTargetLanguageTimer: NodeJS.Timeout
