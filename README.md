@@ -2,9 +2,11 @@
   <img src="./assets/dlmoji-icon.png" width="256"/>
 </p>
 <p align="center">
-  <strong>raycast-DLmoji</strong>
+  <strong>Raycast-DLmoji</strong>
 </p>
 <p align="center">An intelligent Emoji Dictionary🙃 helps to get related Emojis, Phrases, and Translations in Raycast, powered by <b>D</b>eep <b>L</b>earning E<b>moji</b> Prediction (<b>DLmoji</b>) and comparable intelligent APIs.</p>
+
+### [Install DLmoji in Raycast Store right now!](https://www.raycast.com/Hydrapse/dlmoji)
 
 ## Feature
 
